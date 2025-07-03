@@ -1,0 +1,28 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install backend dependencies and test
+      run: |
+        cd backend
+        npm install
+        npm test
+
+    - name: Install frontend dependencies and test
+      run: |
+        cd frontend
+        npm install
+        npm test
+        npm run build # Optional: ensure build passes
